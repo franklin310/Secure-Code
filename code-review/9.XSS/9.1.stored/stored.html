@@ -1,0 +1,26 @@
+{{#if products.length}}<a style="float:right;margin-right:10px;" href="/user/checkout">Buy</a>{{/if}}
+<h1>Cart</h1>
+<p>Welcome, {{ user.username }}</p>
+<p>SubTotal: {{subTotal}}</p>
+{{#unless products.length}}
+No product in Cart.
+{{/unless}}
+
+<center>
+<pre style="color:green">{{success_messages}}</pre>
+<pre style="text-align:center;color:red">{{error_messages}}</pre>
+    {{#each products}}
+    <ul>
+      <li style="float:left">
+      <form method="post" action="/user/removeFromCart">
+      <input type="hidden" name="product_id" value="{{_id}}" />
+     <input type="hidden" name="_csrf" value="{{../csrfToken}}" />
+      <pre style="font: bold 20px Georgia, courier">{{name}}</pre>
+      <img src="{{photoPath}}" height="300px" width="300px"/>
+      <pre style="font: italic bold 12px Georgia, serif"> $ {{price}} </pre>
+     <button type="submit"> Remove from Cart </button>
+      </form>
+      </li>
+    </ul>
+    {{/each}}
+</center>
